@@ -14,7 +14,9 @@ import java.util.ArrayList;
  * @author GPC
  */
 public class Frame extends javax.swing.JFrame {
+
     public double ANS;
+
     /**
      * Creates new form Frame
      */
@@ -281,7 +283,7 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
-        jButtonClear.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonClear.setBackground(new java.awt.Color(255, 102, 0));
         jButtonClear.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButtonClear.setForeground(new java.awt.Color(255, 255, 255));
         jButtonClear.setText("CLEAR");
@@ -303,7 +305,7 @@ public class Frame extends javax.swing.JFrame {
             }
         });
 
-        jButtonDel.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonDel.setBackground(new java.awt.Color(255, 102, 0));
         jButtonDel.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButtonDel.setForeground(new java.awt.Color(255, 255, 255));
         jButtonDel.setText("DEL");
@@ -542,49 +544,47 @@ public class Frame extends javax.swing.JFrame {
         }
         System.out.println("===========End of Parsing===========");
 
-        for (double n: nums) {System.out.println("Nums entry: "+n);}
-        for (String c: operators) {System.out.println("Operator entry:"+c);}
-        
+        for (double n : nums) {
+            System.out.println("Nums entry: " + n);
+        }
+        for (String c : operators) {
+            System.out.println("Operator entry:" + c);
+        }
 
-        
         if (nums.size() == 1 && jLabelDisplay.getText() != "Err...") {
             result = nums.get(0);
             ANS = result;
-        }
-        else if (jLabelDisplay.getText() != "Err..." && nums.size() != 1) {
-            
+        } else if (jLabelDisplay.getText() != "Err..." && nums.size() != 1) {
+
             while (true) {
                 if (operators.indexOf("^") != -1) {
                     int index = operators.indexOf("^");
                     nums.set(index, Math.pow(nums.get(index).doubleValue(), nums.get(index + 1).doubleValue()));
-                    nums.remove((int)(index + 1));
-                    operators.remove((int)index);    
-                }
-                else if (operators.indexOf("×") != -1) {
+                    nums.remove((int) (index + 1));
+                    operators.remove((int) index);
+                } else if (operators.indexOf("×") != -1) {
                     int index = operators.indexOf("×");
                     nums.set(index, nums.get(index).doubleValue() * nums.get(index + 1).doubleValue());
-                    nums.remove((int)(index + 1));
-                    operators.remove((int)index);
-                }
-                else if (operators.indexOf("÷") != -1) {
+                    nums.remove((int) (index + 1));
+                    operators.remove((int) index);
+                } else if (operators.indexOf("÷") != -1) {
                     int index = operators.indexOf("÷");
                     nums.set(index, nums.get(index).doubleValue() / nums.get(index + 1).doubleValue());
-                    nums.remove((int)(index + 1));
-                    operators.remove((int)index);    
-                }
-                else if (operators.indexOf("+") != -1) {
+                    nums.remove((int) (index + 1));
+                    operators.remove((int) index);
+                } else if (operators.indexOf("+") != -1) {
                     int index = operators.indexOf("+");
                     nums.set(index, nums.get(index).doubleValue() + nums.get(index + 1).doubleValue());
-                    nums.remove((int)(index + 1));
-                    operators.remove((int)index);    
-                }
-                else if (operators.indexOf("-") != -1) {
+                    nums.remove((int) (index + 1));
+                    operators.remove((int) index);
+                } else if (operators.indexOf("-") != -1) {
                     int index = operators.indexOf("-");
                     nums.set(index, nums.get(index).doubleValue() - nums.get(index + 1).doubleValue());
-                    nums.remove((int)(index + 1));
-                    operators.remove((int)index);    
+                    nums.remove((int) (index + 1));
+                    operators.remove((int) index);
+                } else {
+                    break;
                 }
-                else break;
             }
             result = nums.get(0);
             ANS = result;
