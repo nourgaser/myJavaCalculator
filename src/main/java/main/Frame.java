@@ -14,12 +14,13 @@ import java.util.ArrayList;
  * @author GPC
  */
 public class Frame extends javax.swing.JFrame {
-
+    public double ANS;
     /**
      * Creates new form Frame
      */
     public Frame() {
         initComponents();
+        ANS = 0;
     }
 
     /**
@@ -433,13 +434,14 @@ public class Frame extends javax.swing.JFrame {
     private void jButton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton0ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "0");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "0");
     }//GEN-LAST:event_jButton0ActionPerformed
 
     private void jButtonPowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPowActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
+        if (jLabelDisplay.getText() != "Err...") {
             jLabelDisplay.setText(jLabelDisplay.getText() + "^");
+        }
 
     }//GEN-LAST:event_jButtonPowActionPerformed
 
@@ -453,86 +455,160 @@ public class Frame extends javax.swing.JFrame {
         String input = jLabelDisplay.getText();
         double result = 0;
         ArrayList<Double> nums = new ArrayList<>();
-        ArrayList<Character> operators = new ArrayList<>();
+        ArrayList<String> operators = new ArrayList<>();
         String temp = "";
-        char lastChar = 'k';
+        char lastChar = 'c', currentChar = 'c';
+        String lastCharType = "empty", currentCharType = "empty";
         String allOperators = "+-×÷^";
-        for (int i = 0; i < input.length(); i++)
-        {
+        System.out.println("===========Start of Parsing===========");
+        for (int i = 0; i < input.length(); i++) {
+            currentChar = input.charAt(i);
+            System.out.println("Character  " + (i + 1) + ": " + currentChar);
             try {
-                if (input.charAt(i) == '.' && !temp.contains(".")) {
-                    temp += input.charAt(i);
-                    lastChar = 'n';          
+                try {
+                    Integer.parseInt(Character.toString(currentChar));
+                    temp += currentChar;
+                    lastCharType = "number";
+                    lastChar = currentChar;
+                    System.out.println("It's the number " + currentChar);
+                } catch (NumberFormatException e) {
+                    if (currentChar == '-' && temp == "") {
+                        currentCharType = "minus";
+                    } else if (allOperators.contains(Character.toString(currentChar))) {
+                        currentCharType = "operator";
+                    } else if (currentChar == '.') {
+                        currentCharType = "decimalPoint";
+                    } else {
+                        currentCharType = "unknown";
+                    }
+                    System.out.println("Not a number! It's a " + currentCharType + "(" + currentChar + ")");
+
+                    switch (currentCharType) {
+                        case "minus" -> {
+                            if (temp != "") {
+                                System.out.println("minus in the middle of number");
+                                throw new MyException();
+                            } else if (temp == "") {
+                                temp += currentChar;
+                                lastCharType = "minus";
+                                lastChar = currentChar;
+                            } else {
+                                throw new MyException();
+                            }
+                        }
+                        case "decimalPoint" -> {
+                            if (temp.contains(".")) {
+                                System.out.println("multiple decimal points thrown");
+                                throw new MyException();
+                            } else {
+                                temp += ".";
+                                lastCharType = "decimalPoint";
+                                lastChar = '.';
+                            }
+                        }
+                        case "operator" -> {
+                            if (allOperators.contains(Character.toString(lastChar))) {
+                                System.out.println("multiple operators");
+                                throw new MyException();
+
+                            }
+                            nums.add(Double.parseDouble(temp));
+                            System.out.println("Added " + temp + " to nums!");
+                            temp = "";
+                            operators.add(Character.toString(currentChar));
+                            System.out.println("Added " + currentChar + " to operators!");
+                            lastCharType = "operator";
+                            lastChar = currentChar;
+                        }
+                        case "unknown" -> {
+                            System.out.println("unkown thrown");
+                            throw new MyException();
+                        }
+                    }
+
                 }
-                else if (input.charAt(i) == '-' && (temp.contains("-"))) throw new NumberFormatException();
-                else if (input.charAt(i) == '-' && !temp.contains("-") && temp.isEmpty()) {
-                    temp += input.charAt(i);
-                    lastChar = 'n';          
-                }
-                else if (input.charAt(i) == '.' && (temp.contains("."))) throw new NumberFormatException();
-                
-                else if (input.charAt(i) != '.'){
-                Integer.parseInt(Character.toString(input.charAt(i)));
-                temp += input.charAt(i);
-                lastChar = 'n';          
-                }
-                else throw new NumberFormatException();
+            } catch (MyException e) {
+                jLabelDisplay.setText("Err...");
+                break;
             }
-            catch (NumberFormatException e) {
-                if (e == new NumberFormatException()) {jLabelDisplay.setText("Err..."); break;}
-                else if (allOperators.contains(Character.toString(input.charAt(i))) && !allOperators.contains(Character.toString(lastChar))) {
-                    operators.add(input.charAt(i));
-                    lastChar = input.charAt(i);
-                    nums.add(Double.parseDouble(temp));
-                    temp = "";
+
+        }
+        if (temp != "") {
+            nums.add(Double.parseDouble(temp));
+            System.out.println("Added " + temp + " to nums!");
+        }
+        if (allOperators.contains(Character.toString(lastChar))) {
+            jLabelDisplay.setText("Err...");
+        }
+        System.out.println("===========End of Parsing===========");
+
+        for (double n: nums) {System.out.println("Nums entry: "+n);}
+        for (String c: operators) {System.out.println("Operator entry:"+c);}
+        
+
+        
+        if (nums.size() == 1 && jLabelDisplay.getText() != "Err...") {
+            result = nums.get(0);
+            ANS = result;
+        }
+        else if (jLabelDisplay.getText() != "Err..." && nums.size() != 1) {
+            
+            while (true) {
+                if (operators.indexOf("^") != -1) {
+                    int index = operators.indexOf("^");
+                    nums.set(index, Math.pow(nums.get(index).doubleValue(), nums.get(index + 1).doubleValue()));
+                    nums.remove((int)(index + 1));
+                    operators.remove((int)index);    
                 }
+                else if (operators.indexOf("×") != -1) {
+                    int index = operators.indexOf("×");
+                    nums.set(index, nums.get(index).doubleValue() * nums.get(index + 1).doubleValue());
+                    nums.remove((int)(index + 1));
+                    operators.remove((int)index);
+                }
+                else if (operators.indexOf("÷") != -1) {
+                    int index = operators.indexOf("÷");
+                    nums.set(index, nums.get(index).doubleValue() / nums.get(index + 1).doubleValue());
+                    nums.remove((int)(index + 1));
+                    operators.remove((int)index);    
+                }
+                else if (operators.indexOf("+") != -1) {
+                    int index = operators.indexOf("+");
+                    nums.set(index, nums.get(index).doubleValue() + nums.get(index + 1).doubleValue());
+                    nums.remove((int)(index + 1));
+                    operators.remove((int)index);    
+                }
+                else if (operators.indexOf("-") != -1) {
+                    int index = operators.indexOf("-");
+                    nums.set(index, nums.get(index).doubleValue() - nums.get(index + 1).doubleValue());
+                    nums.remove((int)(index + 1));
+                    operators.remove((int)index);    
+                }
+                else break;
             }
+            result = nums.get(0);
+            ANS = result;
+            String strResult = String.format("%.3f", result);
+            jLabelDisplay.setText(strResult);
         }
-        if (!temp.isBlank()) nums.add(Double.parseDouble(temp));
-        if (allOperators.contains(Character.toString(lastChar))) {jLabelDisplay.setText("Err...");}
-        
-        //for (double n: nums) {System.out.println(n);}
-        //for (char c: operators) {System.out.println(c);}
-        
-        
-        switch (operators.get(0)) {
-            case '+' -> result = nums.get(0) + nums.get(1);
-            case '-' -> result = nums.get(0) - nums.get(1);
-            case '×' -> result = nums.get(0) * nums.get(1);
-            case '÷' -> result = nums.get(0) / nums.get(1);
-            case '^' -> result = Math.pow(nums.get(0), nums.get(1));
-        }
-        for (int i = 2; i < nums.size() - 1; i++)
-        {
-            double n = nums.get(i);
-            switch (operators.get(i - 1)) {
-            case '+' -> result += n;
-            case '-' -> result -= n;
-            case '×' -> result *= n;
-            case '÷' -> result /= n;
-            case '^' -> result = Math.pow(result, n);
-        }
-        }
-        
-        jLabelDisplay.setText(Double.toString(result));
     }//GEN-LAST:event_jButtonEqActionPerformed
 
     private void jButtonMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinusActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "-");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "-");
     }//GEN-LAST:event_jButtonMinusActionPerformed
 
     private void jButtonDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDivisionActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "÷");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "÷");
     }//GEN-LAST:event_jButtonDivisionActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "6");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "6");
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
@@ -543,27 +619,30 @@ public class Frame extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "9");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "9");
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "2");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "2");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnsActionPerformed
         // TODO add your handling code here:
+        if (jLabelDisplay.getText() != "Err...") {
+            jLabelDisplay.setText(String.format("%.3f", ANS));
+        }
+
     }//GEN-LAST:event_jButtonAnsActionPerformed
 
     private void jButtonDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelActionPerformed
         // TODO add your handling code here:
         String temp = jLabelDisplay.getText();
-        if (temp.length() > 0)
-        {
+        if (temp.length() > 0) {
             if (temp != "Err...") {
-        temp = temp.substring(0, temp.length() - 1);
-        jLabelDisplay.setText(temp);
+                temp = temp.substring(0, temp.length() - 1);
+                jLabelDisplay.setText(temp);
             }
         }
     }//GEN-LAST:event_jButtonDelActionPerformed
@@ -571,50 +650,51 @@ public class Frame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "1");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "1");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "4");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "4");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "5");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "5");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "7");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "7");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "8");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "8");
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButtonDPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDPointActionPerformed
         // TODO add your handling code here:
-                if (jLabelDisplay.getText() != "Err...")
+        if (jLabelDisplay.getText() != "Err...")
             jLabelDisplay.setText(jLabelDisplay.getText() + ".");
     }//GEN-LAST:event_jButtonDPointActionPerformed
 
     private void jButtonPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlusActionPerformed
         // TODO add your handling code here:
         if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "+");
+            jLabelDisplay.setText(jLabelDisplay.getText() + "+");
     }//GEN-LAST:event_jButtonPlusActionPerformed
 
     private void jButtonMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMultActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-        jLabelDisplay.setText(jLabelDisplay.getText() + "×");
-        
+        if (jLabelDisplay.getText() != "Err...") {
+            jLabelDisplay.setText(jLabelDisplay.getText() + "×");
+        }
+
     }//GEN-LAST:event_jButtonMultActionPerformed
 
     /**
@@ -622,13 +702,11 @@ public class Frame extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
-        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("CDE/Motif".equals(info.getName())) {
@@ -645,7 +723,7 @@ public class Frame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -682,5 +760,5 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelButtons;
     private javax.swing.JPanel jPanelDisplay;
     // End of variables declaration//GEN-END:variables
-    
+
 }
