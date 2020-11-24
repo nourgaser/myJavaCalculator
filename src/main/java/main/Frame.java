@@ -5,15 +5,15 @@
  */
 package main;
 
-import java.awt.Color;
-import java.util.List;
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  *
  * @author GPC
  */
-public class Frame extends javax.swing.JFrame {
+public class Frame extends javax.swing.JFrame implements KeyListener {
 
     public double ANS;
 
@@ -21,8 +21,12 @@ public class Frame extends javax.swing.JFrame {
      * Creates new form Frame
      */
     public Frame() {
+        super();
         initComponents();
         ANS = 0;
+        addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
     }
 
     /**
@@ -761,4 +765,60 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelDisplay;
     // End of variables declaration//GEN-END:variables
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyChar() + " pressed.");
+        int key = e.getKeyCode();
+        switch (key) {
+            case KeyEvent.VK_NUMPAD0 ->
+                this.jButton0ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD1 ->
+                this.jButton1ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD2 ->
+                this.jButton2ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD3 ->
+                this.jButton3ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD4 ->
+                this.jButton4ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD5 ->
+                this.jButton5ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD6 ->
+                this.jButton6ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD7 ->
+                this.jButton7ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD8 ->
+                this.jButton8ActionPerformed(null);
+            case KeyEvent.VK_NUMPAD9 ->
+                this.jButton9ActionPerformed(null);
+            case 106/*mult*/ ->
+                this.jButtonMultActionPerformed(null);
+            case 107/*plus*/ ->
+                this.jButtonPlusActionPerformed(null);
+            case 109/*minus*/ ->
+                this.jButtonMinusActionPerformed(null);
+            case 110/*point*/ ->
+                this.jButtonDPointActionPerformed(null);
+            case 111/*divide*/ ->
+                this.jButtonDivisionActionPerformed(null);
+            case 10/*enter*/ ->
+                this.jButtonEqActionPerformed(null);
+            case 8/*backspace*/ ->
+                this.jButtonDelActionPerformed(null);
+            case 27/*escape*/ ->
+                this.jButtonClearActionPerformed(null);
+            case 54/*power*/ ->
+                this.jButtonPowActionPerformed(null);
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println(e.getKeyCode() + " released.");
+
+    }
 }

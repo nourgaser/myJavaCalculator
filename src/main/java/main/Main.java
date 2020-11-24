@@ -7,14 +7,14 @@ import java.awt.Color;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author GPC
  */
 public class Main {
+
     public static void main(String args[]) {
         Frame myFrame = new Frame();
-        myFrame.main(null);
+        myFrame.main(args);
     }
 }
