@@ -67,6 +67,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         setTitle("My Calculator");
         setBackground(java.awt.Color.darkGray);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setFocusable(false);
         setForeground(java.awt.Color.darkGray);
         setIconImages(null);
         setMinimumSize(new java.awt.Dimension(455, 400));
@@ -74,13 +75,16 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jPanelDisplay.setBackground(new java.awt.Color(51, 51, 51));
         jPanelDisplay.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelDisplay.setForeground(java.awt.Color.darkGray);
+        jPanelDisplay.setFocusable(false);
 
         jDesktopPane1.setBackground(new java.awt.Color(102, 153, 0));
         jDesktopPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jDesktopPane1.setFocusable(false);
 
         jLabelDisplay.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabelDisplay.setForeground(new java.awt.Color(0, 51, 51));
         jLabelDisplay.setText("3.14568");
+        jLabelDisplay.setFocusable(false);
 
         jDesktopPane1.setLayer(jLabelDisplay, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -121,12 +125,14 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jPanelButtons.setBackground(new java.awt.Color(51, 51, 51));
         jPanelButtons.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelButtons.setForeground(java.awt.Color.darkGray);
+        jPanelButtons.setFocusable(false);
 
         jButton0.setBackground(new java.awt.Color(102, 102, 102));
         jButton0.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jButton0.setForeground(new java.awt.Color(255, 255, 255));
         jButton0.setText("0");
         jButton0.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton0.setFocusable(false);
         jButton0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton0ActionPerformed(evt);
@@ -138,6 +144,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("1");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setFocusable(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -149,6 +156,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonDPoint.setForeground(new java.awt.Color(255, 255, 255));
         jButtonDPoint.setText(".");
         jButtonDPoint.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonDPoint.setFocusable(false);
         jButtonDPoint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDPointActionPerformed(evt);
@@ -160,6 +168,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("2");
         jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.setFocusable(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -171,6 +180,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonAns.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAns.setText("Ans");
         jButtonAns.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonAns.setFocusable(false);
         jButtonAns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAnsActionPerformed(evt);
@@ -182,6 +192,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonPow.setForeground(new java.awt.Color(255, 255, 255));
         jButtonPow.setText("^");
         jButtonPow.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonPow.setFocusable(false);
         jButtonPow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPowActionPerformed(evt);
@@ -193,6 +204,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonPlus.setForeground(new java.awt.Color(255, 255, 255));
         jButtonPlus.setText("+");
         jButtonPlus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonPlus.setFocusable(false);
         jButtonPlus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPlusActionPerformed(evt);
@@ -204,6 +216,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("3");
         jButton3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton3.setFocusable(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -215,6 +228,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonEq.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEq.setText("=");
         jButtonEq.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonEq.setFocusable(false);
         jButtonEq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEqActionPerformed(evt);
@@ -226,6 +240,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonMinus.setForeground(new java.awt.Color(255, 255, 255));
         jButtonMinus.setText("-");
         jButtonMinus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonMinus.setFocusable(false);
         jButtonMinus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMinusActionPerformed(evt);
@@ -237,6 +252,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonDivision.setForeground(new java.awt.Color(255, 255, 255));
         jButtonDivision.setText("÷");
         jButtonDivision.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonDivision.setFocusable(false);
         jButtonDivision.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDivisionActionPerformed(evt);
@@ -248,6 +264,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("5");
         jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton5.setFocusable(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -259,6 +276,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonMult.setForeground(new java.awt.Color(255, 255, 255));
         jButtonMult.setText("×");
         jButtonMult.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonMult.setFocusable(false);
         jButtonMult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMultActionPerformed(evt);
@@ -270,6 +288,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("6");
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton6.setFocusable(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -281,6 +300,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("4");
         jButton4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton4.setFocusable(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -292,6 +312,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonClear.setForeground(new java.awt.Color(255, 255, 255));
         jButtonClear.setText("CLEAR");
         jButtonClear.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonClear.setFocusable(false);
         jButtonClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClearActionPerformed(evt);
@@ -303,6 +324,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("8");
         jButton8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton8.setFocusable(false);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -314,6 +336,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonDel.setForeground(new java.awt.Color(255, 255, 255));
         jButtonDel.setText("DEL");
         jButtonDel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonDel.setFocusable(false);
         jButtonDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDelActionPerformed(evt);
@@ -325,6 +348,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("9");
         jButton9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton9.setFocusable(false);
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -336,6 +360,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("7");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton7.setFocusable(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
