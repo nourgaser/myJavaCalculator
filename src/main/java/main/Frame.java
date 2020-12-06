@@ -16,6 +16,7 @@ import java.awt.event.KeyListener;
 public class Frame extends javax.swing.JFrame implements KeyListener {
 
     public double ANS;
+    public static final String allOperators = "+-×÷^";
 
     /**
      * Creates new form Frame
@@ -470,27 +471,25 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButtonPowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPowActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...") {
-            jLabelDisplay.setText(jLabelDisplay.getText() + "^");
-        }
-
+        appendDisplayWithOperator('^');
     }//GEN-LAST:event_jButtonPowActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        jLabelDisplay.setText(jLabelDisplay.getText() + "3");
+        if (jLabelDisplay.getText() != "Err...") {
+            jLabelDisplay.setText(jLabelDisplay.getText() + "3");
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    }
     private void jButtonEqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqActionPerformed
-        // TODO add your handling code here:
         String input = jLabelDisplay.getText();
-        double result = 0;
+        double result = 0; //final result variable
         ArrayList<Double> nums = new ArrayList<>();
         ArrayList<String> operators = new ArrayList<>();
-        String temp = "";
+        String temp = ""; //buffer for numbers before adding to the numbers array
         char lastChar = 'c', currentChar = 'c';
         String lastCharType = "empty", currentCharType = "empty";
-        String allOperators = "+-×÷^";
+
+        //parsing starts here
         System.out.println("===========Start of Parsing===========");
         for (int i = 0; i < input.length(); i++) {
             currentChar = input.charAt(i);
@@ -512,7 +511,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                     } else {
                         currentCharType = "unknown";
                     }
-                    System.out.println("Not a number! It's a " + currentCharType + "(" + currentChar + ")");
+                    System.out.println("It's the " + currentCharType + " " + currentChar);
 
                     switch (currentCharType) {
                         case "minus" -> {
@@ -542,6 +541,9 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                                 System.out.println("multiple operators");
                                 throw new MyException();
 
+                            } else if (temp.isEmpty()) {
+                                System.out.println("operator at start thrown");
+                                throw new MyException();
                             }
                             nums.add(Double.parseDouble(temp));
                             System.out.println("Added " + temp + " to nums!");
@@ -565,14 +567,20 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
         }
         if (temp != "") {
-            nums.add(Double.parseDouble(temp));
-            System.out.println("Added " + temp + " to nums!");
+            try {
+                nums.add(Double.parseDouble(temp));
+                System.out.println("Added " + temp + " to nums!");
+            } catch (NumberFormatException e) {
+                jLabelDisplay.setText("Err...");
+            }
         }
         if (allOperators.contains(Character.toString(lastChar))) {
             jLabelDisplay.setText("Err...");
         }
         System.out.println("===========End of Parsing===========");
+        //parsing ends
 
+        //logging the numsbers and operators arrays
         for (double n : nums) {
             System.out.println("Nums entry: " + n);
         }
@@ -580,6 +588,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             System.out.println("Operator entry:" + c);
         }
 
+        //calculating the result using the numbers and the operators arrays
         if (nums.size() == 1 && jLabelDisplay.getText() != "Err...") {
             result = nums.get(0);
             ANS = result;
@@ -615,23 +624,25 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                     break;
                 }
             }
-            result = nums.get(0);
-            ANS = result;
-            String strResult = String.format("%.3f", result);
-            jLabelDisplay.setText(strResult);
+
+            //displaying the result
+            if (!nums.isEmpty()) {
+                result = nums.get(0);
+                ANS = result;
+                String strResult = String.format("%.3f", result);
+                jLabelDisplay.setText(strResult);
+            }
         }
     }//GEN-LAST:event_jButtonEqActionPerformed
 
     private void jButtonMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinusActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "-");
+        appendDisplayWithOperator('-');
     }//GEN-LAST:event_jButtonMinusActionPerformed
 
     private void jButtonDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDivisionActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "÷");
+        appendDisplayWithOperator('÷');
     }//GEN-LAST:event_jButtonDivisionActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -708,23 +719,57 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButtonDPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDPointActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
+        if (jLabelDisplay.getText() != "Err..." && (this.getLastChar() != 'e') && (this.getLastChar() != '.'))
             jLabelDisplay.setText(jLabelDisplay.getText() + ".");
     }//GEN-LAST:event_jButtonDPointActionPerformed
 
     private void jButtonPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlusActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "+");
+        appendDisplayWithOperator('+');
     }//GEN-LAST:event_jButtonPlusActionPerformed
 
     private void jButtonMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMultActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...") {
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×");
+        appendDisplayWithOperator('×');
+    }//GEN-LAST:event_jButtonMultActionPerformed
+    private void appendDisplayWithOperator(char c) {
+        if (jLabelDisplay.getText() != "Err..." && !jLabelDisplay.getText().isEmpty()) {
+            if (!"+-×÷^.".contains(Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1)))) {
+                jLabelDisplay.setText(jLabelDisplay.getText() + c);
+            } else {
+                jLabelDisplay.setText(jLabelDisplay.getText().substring(0, jLabelDisplay.getText().length() - 1) + c);
+            }
+
+        } else if (jLabelDisplay.getText() == "Err..."); else {
+            if (c == '-') {
+                jLabelDisplay.setText("-");
+            } else {
+                jLabelDisplay.setText("");
+            }
         }
 
-    }//GEN-LAST:event_jButtonMultActionPerformed
+    }
+
+    private char getLastChar() {
+        if (!jLabelDisplay.getText().isEmpty()) {
+            char lastChar = jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1);
+            return lastChar;
+        } else {
+            return 'e';
+        }
+    }
+
+    private String getLastCharString() {
+        if (!jLabelDisplay.getText().isEmpty()) {
+            String lastChar = Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1));
+            return lastChar;
+        }
+        else return "e";
+    }
+    //TODO: return the last number in the display
+    private String getLastNumberString(){
+        return "TODO";
+    }
 
     /**
      * @param args the command line arguments
@@ -796,7 +841,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar() + " pressed.");
+        System.out.println(e.getKeyChar() + " (" + e.getKeyCode() + ") pressed.");
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_NUMPAD0 ->
@@ -843,7 +888,5 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println(e.getKeyCode() + " released.");
-
     }
 }
