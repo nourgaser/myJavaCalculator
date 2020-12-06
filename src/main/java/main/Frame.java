@@ -17,6 +17,10 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     public double ANS;
     public static final String allOperators = "+-×÷^";
+    public static int status = 101;
+    //101: all good
+    //401: general/unknown error
+    //402: operator at start, multiple decimal points, unclosed bracket, minus in the middle of number
 
     /**
      * Creates new form Frame
@@ -48,7 +52,6 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonDPoint = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButtonAns = new javax.swing.JButton();
-        jButtonPow = new javax.swing.JButton();
         jButtonPlus = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButtonEq = new javax.swing.JButton();
@@ -63,6 +66,9 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonDel = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButtonPow = new javax.swing.JButton();
+        jPanelStatus = new javax.swing.JPanel();
+        jButtonStatus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("My Calculator");
@@ -185,18 +191,6 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonAns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAnsActionPerformed(evt);
-            }
-        });
-
-        jButtonPow.setBackground(new java.awt.Color(102, 102, 102));
-        jButtonPow.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jButtonPow.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonPow.setText("^");
-        jButtonPow.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButtonPow.setFocusable(false);
-        jButtonPow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPowActionPerformed(evt);
             }
         });
 
@@ -368,6 +362,18 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             }
         });
 
+        jButtonPow.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonPow.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButtonPow.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonPow.setText("^");
+        jButtonPow.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonPow.setFocusable(false);
+        jButtonPow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPowActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelButtonsLayout = new javax.swing.GroupLayout(jPanelButtons);
         jPanelButtons.setLayout(jPanelButtonsLayout);
         jPanelButtonsLayout.setHorizontalGroup(
@@ -381,16 +387,20 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                    .addComponent(jButtonDPoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                    .addComponent(jButtonPow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE))
+                    .addGroup(jPanelButtonsLayout.createSequentialGroup()
+                        .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                    .addGroup(jPanelButtonsLayout.createSequentialGroup()
+                        .addComponent(jButtonDPoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonPow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButtonMult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -410,33 +420,63 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             .addGroup(jPanelButtonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonClear, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(jButtonClear, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonDivision, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(jButtonDivision, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonMult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonMinus, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(jButtonMinus, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonPlus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonDPoint, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                    .addComponent(jButtonDPoint, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                     .addComponent(jButtonAns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonEq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonEq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonPow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+        );
+
+        jPanelStatus.setBackground(new java.awt.Color(51, 51, 51));
+        jPanelStatus.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelStatus.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
+
+        jButtonStatus.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonStatus.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        jButtonStatus.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonStatus.setText("<html><p align=\"left\">Status: All good!</p></html>");
+        jButtonStatus.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonStatus.setFocusable(false);
+        jButtonStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStatusActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelStatusLayout = new javax.swing.GroupLayout(jPanelStatus);
+        jPanelStatus.setLayout(jPanelStatusLayout);
+        jPanelStatusLayout.setHorizontalGroup(
+            jPanelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelStatusLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelStatusLayout.setVerticalGroup(
+            jPanelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButtonStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -447,7 +487,8 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -457,34 +498,244 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 .addComponent(jPanelDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton0ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "0");
-    }//GEN-LAST:event_jButton0ActionPerformed
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "7");
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "9");
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButtonDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelActionPerformed
+        // TODO add your handling code here:
+        String temp = jLabelDisplay.getText();
+        if (!temp.isEmpty()) {
+            setStatus(101, "Status: waiting...");
+            temp = temp.substring(0, temp.length() - 1);
+            jLabelDisplay.setText(temp);
+        }
+
+    }//GEN-LAST:event_jButtonDelActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "8");
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+        // TODO add your handling code here:
+        jLabelDisplay.setText("");
+        setStatus(101, "Status: all good!");
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "4");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "6");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButtonMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMultActionPerformed
+        // TODO add your handling code here:
+        appendDisplayWithOperator('×');
+    }//GEN-LAST:event_jButtonMultActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "5");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButtonDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDivisionActionPerformed
+        // TODO add your handling code here:
+        appendDisplayWithOperator('÷');
+    }//GEN-LAST:event_jButtonDivisionActionPerformed
+
+    private void jButtonMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinusActionPerformed
+        // TODO add your handling code here:
+        appendDisplayWithOperator('-');
+    }//GEN-LAST:event_jButtonMinusActionPerformed
+
+    private void jButtonEqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqActionPerformed
+        double result;
+        String input = jLabelDisplay.getText();
+        if (input.isBlank()) {
+            jLabelDisplay.setText(String.valueOf(ANS));
+        } else {
+            //displaying the result
+            result = resultOfExpression(input);
+            ANS = result;
+            String strResult; // = String.format("%.3f", result);
+            if (status == 101) {
+
+                if ((int) result == result) {
+                    strResult = String.valueOf((int) result);
+                } else {
+                    strResult = String.format("%.3f", result);
+                }
+                if (status == 101) {
+                    jLabelDisplay.setText(strResult);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonEqActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101) 
+        jLabelDisplay.setText(jLabelDisplay.getText() + "3");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlusActionPerformed
+        // TODO add your handling code here:
+        appendDisplayWithOperator('+');
+    }//GEN-LAST:event_jButtonPlusActionPerformed
 
     private void jButtonPowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPowActionPerformed
         // TODO add your handling code here:
         appendDisplayWithOperator('^');
     }//GEN-LAST:event_jButtonPowActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnsActionPerformed
         // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...") {
-            jLabelDisplay.setText(jLabelDisplay.getText() + "3");
-    }//GEN-LAST:event_jButton3ActionPerformed
+        String strResult;
+        if (status == 101) {
+            if ((int) ANS == ANS) {
+                strResult = String.valueOf((int) ANS);
+            } else {
+                strResult = String.format("%.3f", ANS);
+            }
+
+            jLabelDisplay.setText(strResult);
+        }
+    }//GEN-LAST:event_jButtonAnsActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "2");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonDPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDPointActionPerformed
+        // TODO add your handling code here:
+        if (!jLabelDisplay.getText().isEmpty()) {
+            ArrayList<Double> numbers = new ArrayList<Double>();
+            ArrayList<String> operators = new ArrayList<String>();
+            expressionToArrays(jLabelDisplay.getText(), numbers, operators);
+            if (!numbers.isEmpty()) {
+                double lastNum = numbers.get(numbers.size() - 1);
+                if ((int) lastNum != lastNum) {
+                    setStatus(101, "already placed decimal point");
+                } else {
+                    jLabelDisplay.setText(jLabelDisplay.getText() + ".");
+                }
+            }
+    }//GEN-LAST:event_jButtonDPointActionPerformed
+        else
+            jLabelDisplay.setText(jLabelDisplay.getText() + ".");
+
     }
-    private void jButtonEqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqActionPerformed
-        String input = jLabelDisplay.getText();
-        double result = 0; //final result variable
-        ArrayList<Double> nums = new ArrayList<>();
-        ArrayList<String> operators = new ArrayList<>();
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "1");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton0ActionPerformed
+        // TODO add your handling code here:
+//        if (status == 101)
+        jLabelDisplay.setText(jLabelDisplay.getText() + "0");
+    }//GEN-LAST:event_jButton0ActionPerformed
+
+    private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonStatusActionPerformed
+
+    //if the last character on display is already an operator then it's replaced
+    private void appendDisplayWithOperator(char c) {
+        if (status == 101 && !jLabelDisplay.getText().isEmpty() && !(this.getLastChar() == '-' && jLabelDisplay.getText().length() == 1)) {
+            if (!"+-×÷^.".contains(Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1)))) {
+                jLabelDisplay.setText(jLabelDisplay.getText() + c);
+            } else {
+                jLabelDisplay.setText(jLabelDisplay.getText().substring(0, jLabelDisplay.getText().length() - 1) + c);
+            }
+
+        } else if (status != 101); else {
+            if (c == '-') {
+                jLabelDisplay.setText("-");
+            } else {
+                if (status == 101) {
+                    jLabelDisplay.setText("");
+                }
+            }
+        }
+
+    }
+
+    private char getLastChar() {
+        if (!jLabelDisplay.getText().isEmpty()) {
+            char lastChar = jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1);
+            return lastChar;
+        } else {
+            return 'e';
+        }
+    }
+
+    private String getLastCharString() {
+        if (!jLabelDisplay.getText().isEmpty()) {
+            String lastChar = Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1));
+            return lastChar;
+        } else {
+            return "e";
+        }
+    }
+
+    //set status
+    private void setStatus(int n, String message) {
+        Frame.status = n;
+        setStatusMessage(n, message);
+    }
+
+    private void setStatusMessage(int n, String message) {
+        switch (n) {
+            case 401: {
+                jButtonStatus.setText("Error: " + message);
+                break;
+            }
+            case 101: {
+                jButtonStatus.setText(message);
+                break;
+            }
+        }
+        jButtonStatus.doClick();
+
+    }
+
+    //TODO: return the last number in the display
+    private String getLastNumberString() {
+        return "TODO";
+    }
+
+    //string of numbers and operators to ArrayLists
+    private void expressionToArrays(String input, ArrayList<Double> numbers, ArrayList<String> operators) {
         String temp = ""; //buffer for numbers before adding to the numbers array
         char lastChar = 'c', currentChar = 'c';
         String lastCharType = "empty", currentCharType = "empty";
@@ -523,29 +774,16 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                                 lastCharType = "minus";
                                 lastChar = currentChar;
                             } else {
-                                throw new MyException();
+                                throw new MyException(401, "unknown error");
                             }
                         }
                         case "decimalPoint" -> {
-                            if (temp.contains(".")) {
-                                System.out.println("multiple decimal points thrown");
-                                throw new MyException();
-                            } else {
-                                temp += ".";
-                                lastCharType = "decimalPoint";
-                                lastChar = '.';
-                            }
+                            temp += ".";
+                            lastCharType = "decimalPoint";
+                            lastChar = '.';
                         }
                         case "operator" -> {
-                            if (allOperators.contains(Character.toString(lastChar))) {
-                                System.out.println("multiple operators");
-                                throw new MyException();
-
-                            } else if (temp.isEmpty()) {
-                                System.out.println("operator at start thrown");
-                                throw new MyException();
-                            }
-                            nums.add(Double.parseDouble(temp));
+                            numbers.add(Double.parseDouble(temp));
                             System.out.println("Added " + temp + " to nums!");
                             temp = "";
                             operators.add(Character.toString(currentChar));
@@ -555,220 +793,104 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                         }
                         case "unknown" -> {
                             System.out.println("unkown thrown");
-                            throw new MyException();
+                            throw new MyException(401, "unknown erorr");
                         }
                     }
 
                 }
-            } catch (MyException e) {
-                jLabelDisplay.setText("Err...");
+            } catch (MyException | NumberFormatException e) {
+//                jLabelDisplay.setText("Err...");
+                System.out.println(e.getMessage());
+                setStatus(401, e.getMessage());
                 break;
             }
 
         }
         if (temp != "") {
             try {
-                nums.add(Double.parseDouble(temp));
+                numbers.add(Double.parseDouble(temp));
                 System.out.println("Added " + temp + " to nums!");
+                setStatus(101, "Status: all good.");
             } catch (NumberFormatException e) {
-                jLabelDisplay.setText("Err...");
+                setStatus(401, e.getMessage());
             }
         }
         if (allOperators.contains(Character.toString(lastChar))) {
-            jLabelDisplay.setText("Err...");
+            setStatus(401, "");
         }
         System.out.println("===========End of Parsing===========");
         //parsing ends
 
-        //logging the numsbers and operators arrays
-        for (double n : nums) {
-            System.out.println("Nums entry: " + n);
-        }
-        for (String c : operators) {
-            System.out.println("Operator entry:" + c);
-        }
+    }
 
-        //calculating the result using the numbers and the operators arrays
-        if (nums.size() == 1 && jLabelDisplay.getText() != "Err...") {
-            result = nums.get(0);
-            ANS = result;
-        } else if (jLabelDisplay.getText() != "Err..." && nums.size() != 1) {
+    //result of applying an array of operators to an array of numbers
+    private double resultOfArrays(ArrayList<Double> numbers, ArrayList<String> operators) {
+        if (numbers.size() != operators.size() + 1) {
+            setStatus(401, "Error: ending with operator");
+            return 0;
+        }
+        if (numbers.size() == 1 && status == 101) {
+            ANS = numbers.get(0);
+            return numbers.get(0);
+        } else if (status == 101 && numbers.size() != 1) {
 
             while (true) {
                 if (operators.indexOf("^") != -1) {
                     int index = operators.indexOf("^");
-                    nums.set(index, Math.pow(nums.get(index).doubleValue(), nums.get(index + 1).doubleValue()));
-                    nums.remove((int) (index + 1));
+                    numbers.set(index, Math.pow(numbers.get(index).doubleValue(), numbers.get(index + 1).doubleValue()));
+                    numbers.remove((int) (index + 1));
                     operators.remove((int) index);
                 } else if (operators.indexOf("×") != -1) {
                     int index = operators.indexOf("×");
-                    nums.set(index, nums.get(index).doubleValue() * nums.get(index + 1).doubleValue());
-                    nums.remove((int) (index + 1));
+                    numbers.set(index, numbers.get(index).doubleValue() * numbers.get(index + 1).doubleValue());
+                    numbers.remove((int) (index + 1));
                     operators.remove((int) index);
                 } else if (operators.indexOf("÷") != -1) {
                     int index = operators.indexOf("÷");
-                    nums.set(index, nums.get(index).doubleValue() / nums.get(index + 1).doubleValue());
-                    nums.remove((int) (index + 1));
+                    numbers.set(index, numbers.get(index).doubleValue() / numbers.get(index + 1).doubleValue());
+                    numbers.remove((int) (index + 1));
                     operators.remove((int) index);
                 } else if (operators.indexOf("+") != -1) {
                     int index = operators.indexOf("+");
-                    nums.set(index, nums.get(index).doubleValue() + nums.get(index + 1).doubleValue());
-                    nums.remove((int) (index + 1));
+                    numbers.set(index, numbers.get(index).doubleValue() + numbers.get(index + 1).doubleValue());
+                    numbers.remove((int) (index + 1));
                     operators.remove((int) index);
                 } else if (operators.indexOf("-") != -1) {
                     int index = operators.indexOf("-");
-                    nums.set(index, nums.get(index).doubleValue() - nums.get(index + 1).doubleValue());
-                    nums.remove((int) (index + 1));
+                    numbers.set(index, numbers.get(index).doubleValue() - numbers.get(index + 1).doubleValue());
+                    numbers.remove((int) (index + 1));
                     operators.remove((int) index);
                 } else {
                     break;
                 }
             }
 
-            //displaying the result
-            if (!nums.isEmpty()) {
-                result = nums.get(0);
-                ANS = result;
-                String strResult = String.format("%.3f", result);
-                jLabelDisplay.setText(strResult);
-            }
+            ANS = numbers.get(0);
+            return numbers.get(0);
         }
-    }//GEN-LAST:event_jButtonEqActionPerformed
-
-    private void jButtonMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMinusActionPerformed
-        // TODO add your handling code here:
-        appendDisplayWithOperator('-');
-    }//GEN-LAST:event_jButtonMinusActionPerformed
-
-    private void jButtonDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDivisionActionPerformed
-        // TODO add your handling code here:
-        appendDisplayWithOperator('÷');
-    }//GEN-LAST:event_jButtonDivisionActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "6");
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        // TODO add your handling code here:
-        jLabelDisplay.setText("");
-    }//GEN-LAST:event_jButtonClearActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "9");
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "2");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnsActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...") {
-            jLabelDisplay.setText(String.format("%.3f", ANS));
-        }
-
-    }//GEN-LAST:event_jButtonAnsActionPerformed
-
-    private void jButtonDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelActionPerformed
-        // TODO add your handling code here:
-        String temp = jLabelDisplay.getText();
-        if (temp.length() > 0) {
-            if (temp != "Err...") {
-                temp = temp.substring(0, temp.length() - 1);
-                jLabelDisplay.setText(temp);
-            }
-        }
-    }//GEN-LAST:event_jButtonDelActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "1");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "4");
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "5");
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "7");
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err...")
-            jLabelDisplay.setText(jLabelDisplay.getText() + "8");
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButtonDPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDPointActionPerformed
-        // TODO add your handling code here:
-        if (jLabelDisplay.getText() != "Err..." && (this.getLastChar() != 'e') && (this.getLastChar() != '.'))
-            jLabelDisplay.setText(jLabelDisplay.getText() + ".");
-    }//GEN-LAST:event_jButtonDPointActionPerformed
-
-    private void jButtonPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlusActionPerformed
-        // TODO add your handling code here:
-        appendDisplayWithOperator('+');
-    }//GEN-LAST:event_jButtonPlusActionPerformed
-
-    private void jButtonMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMultActionPerformed
-        // TODO add your handling code here:
-        appendDisplayWithOperator('×');
-    }//GEN-LAST:event_jButtonMultActionPerformed
-    private void appendDisplayWithOperator(char c) {
-        if (jLabelDisplay.getText() != "Err..." && !jLabelDisplay.getText().isEmpty()) {
-            if (!"+-×÷^.".contains(Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1)))) {
-                jLabelDisplay.setText(jLabelDisplay.getText() + c);
-            } else {
-                jLabelDisplay.setText(jLabelDisplay.getText().substring(0, jLabelDisplay.getText().length() - 1) + c);
-            }
-
-        } else if (jLabelDisplay.getText() == "Err..."); else {
-            if (c == '-') {
-                jLabelDisplay.setText("-");
-            } else {
-                jLabelDisplay.setText("");
-            }
-        }
-
+        return 0;
     }
 
-    private char getLastChar() {
-        if (!jLabelDisplay.getText().isEmpty()) {
-            char lastChar = jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1);
-            return lastChar;
-        } else {
-            return 'e';
-        }
-    }
+    //get double result from a string of only numbers and operators
+    private double resultOfExpression(String input) {
+        input = jLabelDisplay.getText();
+        if (!input.isEmpty()) {
+            ArrayList<Double> numbers = new ArrayList<>();
+            ArrayList<String> operators = new ArrayList<>();
+            //string split into numbers and operators in ArrayLists in order of appearance
+            expressionToArrays(input, numbers, operators);
+            //logging the numsbers and operators arrays
+            for (double n : numbers) {
+                System.out.println("Nums entry: " + n);
+            }
+            for (String c : operators) {
+                System.out.println("Operator entry:" + c);
+            }
 
-    private String getLastCharString() {
-        if (!jLabelDisplay.getText().isEmpty()) {
-            String lastChar = Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1));
-            return lastChar;
+            //calculating the result using the numbers and the operators arrays
+            return resultOfArrays(numbers, operators);
         }
-        else return "e";
-    }
-    //TODO: return the last number in the display
-    private String getLastNumberString(){
-        return "TODO";
+        return 0;
     }
 
     /**
@@ -829,10 +951,12 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JButton jButtonMult;
     private javax.swing.JButton jButtonPlus;
     private javax.swing.JButton jButtonPow;
+    private javax.swing.JButton jButtonStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabelDisplay;
     private javax.swing.JPanel jPanelButtons;
     private javax.swing.JPanel jPanelDisplay;
+    private javax.swing.JPanel jPanelStatus;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -842,46 +966,47 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyChar() + " (" + e.getKeyCode() + ") pressed.");
+        setStatus(101, "Status: waiting...");
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_NUMPAD0 ->
-                this.jButton0ActionPerformed(null);
+                this.jButton0.doClick();
             case KeyEvent.VK_NUMPAD1 ->
-                this.jButton1ActionPerformed(null);
+                this.jButton1.doClick();
             case KeyEvent.VK_NUMPAD2 ->
-                this.jButton2ActionPerformed(null);
+                this.jButton2.doClick();
             case KeyEvent.VK_NUMPAD3 ->
-                this.jButton3ActionPerformed(null);
+                this.jButton3.doClick();
             case KeyEvent.VK_NUMPAD4 ->
-                this.jButton4ActionPerformed(null);
+                this.jButton4.doClick();
             case KeyEvent.VK_NUMPAD5 ->
-                this.jButton5ActionPerformed(null);
+                this.jButton5.doClick();
             case KeyEvent.VK_NUMPAD6 ->
-                this.jButton6ActionPerformed(null);
+                this.jButton6.doClick();
             case KeyEvent.VK_NUMPAD7 ->
-                this.jButton7ActionPerformed(null);
+                this.jButton7.doClick();
             case KeyEvent.VK_NUMPAD8 ->
-                this.jButton8ActionPerformed(null);
+                this.jButton8.doClick();
             case KeyEvent.VK_NUMPAD9 ->
-                this.jButton9ActionPerformed(null);
+                this.jButton9.doClick();
             case 106/*mult*/ ->
-                this.jButtonMultActionPerformed(null);
+                this.jButtonMult.doClick();
             case 107/*plus*/ ->
-                this.jButtonPlusActionPerformed(null);
+                this.jButtonPlus.doClick();
             case 109/*minus*/ ->
-                this.jButtonMinusActionPerformed(null);
+                this.jButtonMinus.doClick();
             case 110/*point*/ ->
-                this.jButtonDPointActionPerformed(null);
+                this.jButtonDPoint.doClick();
             case 111/*divide*/ ->
-                this.jButtonDivisionActionPerformed(null);
+                this.jButtonDivision.doClick();
             case 10/*enter*/ ->
-                this.jButtonEqActionPerformed(null);
+                this.jButtonEq.doClick();
             case 8/*backspace*/ ->
-                this.jButtonDelActionPerformed(null);
+                this.jButtonDel.doClick();
             case 27/*escape*/ ->
-                this.jButtonClearActionPerformed(null);
+                this.jButtonClear.doClick();
             case 54/*power*/ ->
-                this.jButtonPowActionPerformed(null);
+                this.jButtonPow.doClick();
         }
 
     }

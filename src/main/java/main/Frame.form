@@ -45,6 +45,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanelButtons" max="32767" attributes="0"/>
                   <Component id="jPanelDisplay" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanelStatus" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -57,6 +58,8 @@
               <Component id="jPanelDisplay" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelButtons" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanelStatus" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -179,17 +182,24 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButton5" alignment="2" pref="103" max="32767" attributes="0"/>
-                      <Component id="jButtonDPoint" alignment="2" max="32767" attributes="0"/>
-                      <Component id="jButton2" alignment="2" max="32767" attributes="0"/>
-                      <Component id="jButton8" alignment="2" pref="103" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButton6" alignment="2" pref="102" max="32767" attributes="0"/>
-                      <Component id="jButtonPow" alignment="2" max="32767" attributes="0"/>
-                      <Component id="jButton3" alignment="2" max="32767" attributes="0"/>
-                      <Component id="jButton9" alignment="2" pref="102" max="32767" attributes="0"/>
+                      <Group type="102" alignment="2" attributes="0">
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jButton5" alignment="2" pref="103" max="32767" attributes="0"/>
+                              <Component id="jButton2" alignment="2" max="32767" attributes="0"/>
+                              <Component id="jButton8" alignment="2" pref="103" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="2" attributes="0">
+                              <Component id="jButton6" alignment="2" pref="102" max="32767" attributes="0"/>
+                              <Component id="jButton3" alignment="2" max="32767" attributes="0"/>
+                              <Component id="jButton9" alignment="2" pref="102" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="2" attributes="0">
+                          <Component id="jButtonDPoint" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButtonPow" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
@@ -214,7 +224,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButtonClear" alignment="2" pref="56" max="32767" attributes="0"/>
+                      <Component id="jButtonClear" alignment="2" pref="45" max="32767" attributes="0"/>
                       <Component id="jButton8" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButtonDel" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButton9" alignment="2" max="32767" attributes="0"/>
@@ -222,7 +232,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButtonDivision" alignment="2" pref="56" max="32767" attributes="0"/>
+                      <Component id="jButtonDivision" alignment="2" pref="48" max="32767" attributes="0"/>
                       <Component id="jButton5" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButtonMult" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButton6" alignment="2" max="32767" attributes="0"/>
@@ -230,7 +240,7 @@
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButtonMinus" alignment="2" pref="56" max="32767" attributes="0"/>
+                      <Component id="jButtonMinus" alignment="2" pref="46" max="32767" attributes="0"/>
                       <Component id="jButton2" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButtonPlus" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButton3" alignment="2" max="32767" attributes="0"/>
@@ -238,11 +248,11 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jButtonDPoint" alignment="2" pref="57" max="32767" attributes="0"/>
+                      <Component id="jButtonDPoint" alignment="2" pref="46" max="32767" attributes="0"/>
                       <Component id="jButtonAns" alignment="2" max="32767" attributes="0"/>
-                      <Component id="jButtonPow" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButton0" alignment="2" max="32767" attributes="0"/>
                       <Component id="jButtonEq" alignment="2" max="32767" attributes="0"/>
+                      <Component id="jButtonPow" alignment="2" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -363,29 +373,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAnsActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButtonPow">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="66" red="66" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="16" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="^"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                <BevelBorder/>
-              </Border>
-            </Property>
-            <Property name="focusable" type="boolean" value="false"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPowActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonPlus">
@@ -708,6 +695,86 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonPow">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="16" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="^"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPowActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanelStatus">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="33" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+            <EtchetBorder/>
+          </Border>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI Light" size="13" style="0"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonStatus" min="-2" pref="196" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="jButtonStatus" alignment="0" pref="30" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="jButtonStatus">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="66" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Gadugi" size="12" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p align=&quot;left&quot;&gt;Status: All good!&lt;/p&gt;&lt;/html&gt;"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonStatusActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
