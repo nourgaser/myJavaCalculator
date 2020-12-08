@@ -760,27 +760,30 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     private void jButtonDPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDPointActionPerformed
         // TODO add your handling code here:
         String input = jLabelDisplay.getText();
-        if (!input.isEmpty()) {
-            ArrayList<Double> numbers = new ArrayList<Double>();
-            ArrayList<String> operators = new ArrayList<String>();
-            input = input.replace("(", "");
-            input = input.replace("Sin", "");
-            input = input.replace("Cos", "");
-            input = input.replace("Sqrt", "");
-            expressionToArrays(input, numbers, operators);
-            if (!numbers.isEmpty()) {
-                double lastNum = numbers.get(numbers.size() - 1);
-                if ((int) lastNum != lastNum) {
-                    setStatus(101, "already placed decimal point");
+        if (!input.isEmpty() && "0123456789.".contains(getLastCharString())) {
+            int i = input.length() - 1;
+            System.out.println("length:" + i);
+            while (true) {
+                System.out.println("reading");
+                if ("0123456789.".contains(Character.toString(input.charAt(i)))) {
+                    if (i != 0) {
+                        i--;
+                    } else {
+                        break;
+                    }
                 } else {
-                    jLabelDisplay.setText(jLabelDisplay.getText() + ".");
+                    break;
                 }
             }
-    }//GEN-LAST:event_jButtonDPointActionPerformed
-        else
+            System.out.println("reading second");
+            if (input.substring(i).contains(".")) {
+                setStatus(101, "Can't have multiple decimal points...");
+            } else {
+                jLabelDisplay.setText(jLabelDisplay.getText() + ".");
+            }
+        } else
             jLabelDisplay.setText(jLabelDisplay.getText() + ".");
-
-    }
+    }//GEN-LAST:event_jButtonDPointActionPerformed
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 //        if (status == 101)
@@ -870,7 +873,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             char lastChar = jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1);
             return lastChar;
         } else {
-            return 'e';
+            return Character.MIN_VALUE;
         }
     }
 
@@ -879,7 +882,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             String lastChar = Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1));
             return lastChar;
         } else {
-            return "e";
+            return "";
         }
     }
 
@@ -1037,7 +1040,13 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             while (true) {
                 if (operators.indexOf("^") != -1) {
                     int index = operators.indexOf("^");
-                    numbers.set(index, Math.pow(numbers.get(index).doubleValue(), numbers.get(index + 1).doubleValue()));
+                    double n1 = numbers.get(index).doubleValue();
+                    double n2 = numbers.get(index + 1).doubleValue();
+                    if (n2 < 0) {
+                        n2 *= -1;
+                        n2 = 1 / n2;
+                    }
+                    numbers.set(index, Math.pow(n1, n2));
                     numbers.remove((int) (index + 1));
                     operators.remove((int) index);
                 } else if (operators.indexOf("×") != -1) {
@@ -1166,7 +1175,12 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 int i = input.indexOf("Sin") + 3;
                 while (true) {
                     if ((i == (input.length() - 1)) || (allOperators).contains(Character.toString(input.charAt(i + 1)))) {
-                        break;
+                        if (i == input.length() - 1) {
+                            number += input.charAt(i);
+                            break;
+                        } else {
+                            break;
+                        }
                     }
                     number += input.charAt(i);
                     i++;
@@ -1177,7 +1191,12 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 int i = input.indexOf("Cos") + 3;
                 while (true) {
                     if ((i == (input.length() - 1)) || (allOperators).contains(Character.toString(input.charAt(i + 1)))) {
-                        break;
+                        if (i == input.length() - 1) {
+                            number += input.charAt(i);
+                            break;
+                        } else {
+                            break;
+                        }
                     }
                     number += input.charAt(i);
                     i++;
@@ -1188,12 +1207,22 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 int i = input.indexOf("Sqrt") + 4;
                 while (true) {
                     if ((i == (input.length() - 1)) || (allOperators).contains(Character.toString(input.charAt(i + 1)))) {
-                        break;
+                        if (i == input.length() - 1) {
+                            number += input.charAt(i);
+                            break;
+                        } else {
+                            break;
+                        }
                     }
                     number += input.charAt(i);
                     i++;
                 }
-                input = input.replace("Sqrt" + number, String.valueOf(Math.sqrt(Double.parseDouble(number))));
+                double n = Math.sqrt(Double.parseDouble(number));
+                if (n < 0) {
+                    setStatus(101, "Imaginary numbers not supported...");
+                } else {
+                    input = input.replace("Sqrt" + number, String.valueOf(n));
+                }
             }
         }
         System.out.println("resolveFunction output: " + input);
@@ -1279,7 +1308,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        System.out.println(e.getKeyChar() + " (" + e.getKeyCode() + ") pressed.");
+        System.out.println(e.getKeyChar() + " (" + e.getKeyCode() + ") pressed.");
         setStatus(101, "Status: waiting...");
         int key = e.getKeyCode();
         switch (key) {
@@ -1322,7 +1351,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 this.jButtonMult.doClick();
             case 107/*plus*/ ->
                 this.jButtonPlus.doClick();
-            case 109/*minus*/ ->
+            case 109, KeyEvent.VK_MINUS/*minus*/ ->
                 this.jButtonMinus.doClick();
             case 110/*point*/ ->
                 this.jButtonDPoint.doClick();
@@ -1330,6 +1359,13 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 this.jButtonDivision.doClick();
             case 10/*enter*/ ->
                 this.jButtonEq.doClick();
+            case 61/*equal or plus*/ -> {
+                if (e.isShiftDown()) {
+                    this.jButtonPlus.doClick();
+                } else {
+                    this.jButtonEq.doClick();
+                }
+            }
             case 8/*backspace*/ ->
                 this.jButtonDel.doClick();
             case 27/*escape*/ ->
