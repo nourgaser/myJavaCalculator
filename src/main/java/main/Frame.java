@@ -8,6 +8,7 @@ package main;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.Toolkit;
 
 /**
  *
@@ -69,9 +70,17 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         jButtonPow = new javax.swing.JButton();
         jPanelStatus = new javax.swing.JPanel();
         jButtonStatus = new javax.swing.JButton();
+        jButtonHelp = new javax.swing.JButton();
+        jPanelButtons1 = new javax.swing.JPanel();
+        jButtonOpenBracket = new javax.swing.JButton();
+        jButtonCloseBracket = new javax.swing.JButton();
+        jButtonSin = new javax.swing.JButton();
+        jButtonSqrt = new javax.swing.JButton();
+        jButtonCos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("My Calculator");
+        setAlwaysOnTop(true);
         setBackground(java.awt.Color.darkGray);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusable(false);
@@ -90,7 +99,6 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
         jLabelDisplay.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabelDisplay.setForeground(new java.awt.Color(0, 51, 51));
-        jLabelDisplay.setText("3.14568");
         jLabelDisplay.setFocusable(false);
 
         jDesktopPane1.setLayer(jLabelDisplay, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -420,28 +428,28 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             .addGroup(jPanelButtonsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonClear, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jButtonClear, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonDivision, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(jButtonDivision, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonMult, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonMinus, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jButtonMinus, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonPlus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonDPoint, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jButtonDPoint, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(jButtonAns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonEq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -465,6 +473,13 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             }
         });
 
+        jButtonHelp.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonHelp.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        jButtonHelp.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonHelp.setText("Help");
+        jButtonHelp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonHelp.setFocusable(false);
+
         javax.swing.GroupLayout jPanelStatusLayout = new javax.swing.GroupLayout(jPanelStatus);
         jPanelStatus.setLayout(jPanelStatusLayout);
         jPanelStatusLayout.setHorizontalGroup(
@@ -472,11 +487,110 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             .addGroup(jPanelStatusLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanelStatusLayout.setVerticalGroup(
             jPanelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButtonStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addGroup(jPanelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jButtonStatus)
+                .addComponent(jButtonHelp))
+        );
+
+        jPanelButtons1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanelButtons1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelButtons1.setForeground(java.awt.Color.darkGray);
+        jPanelButtons1.setFocusable(false);
+
+        jButtonOpenBracket.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonOpenBracket.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButtonOpenBracket.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonOpenBracket.setText("(");
+        jButtonOpenBracket.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonOpenBracket.setFocusable(false);
+        jButtonOpenBracket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOpenBracketActionPerformed(evt);
+            }
+        });
+
+        jButtonCloseBracket.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonCloseBracket.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButtonCloseBracket.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCloseBracket.setText(")");
+        jButtonCloseBracket.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonCloseBracket.setFocusable(false);
+        jButtonCloseBracket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseBracketActionPerformed(evt);
+            }
+        });
+
+        jButtonSin.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonSin.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButtonSin.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSin.setText("Sin");
+        jButtonSin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonSin.setFocusable(false);
+        jButtonSin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSinActionPerformed(evt);
+            }
+        });
+
+        jButtonSqrt.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonSqrt.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButtonSqrt.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSqrt.setText("√ ");
+        jButtonSqrt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonSqrt.setFocusable(false);
+        jButtonSqrt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSqrtActionPerformed(evt);
+            }
+        });
+
+        jButtonCos.setBackground(new java.awt.Color(102, 102, 102));
+        jButtonCos.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jButtonCos.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCos.setText("Cos");
+        jButtonCos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButtonCos.setFocusable(false);
+        jButtonCos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelButtons1Layout = new javax.swing.GroupLayout(jPanelButtons1);
+        jPanelButtons1.setLayout(jPanelButtons1Layout);
+        jPanelButtons1Layout.setHorizontalGroup(
+            jPanelButtons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelButtons1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonOpenBracket, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCloseBracket, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSqrt, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSin, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCos, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelButtons1Layout.setVerticalGroup(
+            jPanelButtons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelButtons1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelButtons1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jButtonCos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCloseBracket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSqrt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonOpenBracket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -488,7 +602,8 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelButtons1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -497,7 +612,9 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 .addContainerGap()
                 .addComponent(jPanelDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelButtons1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -577,19 +694,25 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     private void jButtonEqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqActionPerformed
         double result;
         String input = jLabelDisplay.getText();
+        if (input.contains("(") && countBrackets(input) == 1) {
+            input += ")";
+        }
         if (input.isBlank()) {
             jLabelDisplay.setText(String.valueOf(ANS));
+        } else if (allOperators.contains(getLastCharString()))
+            setStatus(101, "Can't end with an operator...");
+        else if (input.contains("(") && countBrackets(input) != 0) {
+            setStatus(101, "Unclosed bracket(s) found...");
         } else {
             //displaying the result
             result = resultOfExpression(input);
             ANS = result;
             String strResult; // = String.format("%.3f", result);
             if (status == 101) {
-
                 if ((int) result == result) {
                     strResult = String.valueOf((int) result);
                 } else {
-                    strResult = String.format("%.3f", result);
+                    strResult = String.format("%.8f", result);
                 }
                 if (status == 101) {
                     jLabelDisplay.setText(strResult);
@@ -624,7 +747,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 strResult = String.format("%.3f", ANS);
             }
 
-            jLabelDisplay.setText(strResult);
+            jLabelDisplay.setText(jLabelDisplay.getText() + strResult);
         }
     }//GEN-LAST:event_jButtonAnsActionPerformed
 
@@ -636,10 +759,15 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButtonDPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDPointActionPerformed
         // TODO add your handling code here:
-        if (!jLabelDisplay.getText().isEmpty()) {
+        String input = jLabelDisplay.getText();
+        if (!input.isEmpty()) {
             ArrayList<Double> numbers = new ArrayList<Double>();
             ArrayList<String> operators = new ArrayList<String>();
-            expressionToArrays(jLabelDisplay.getText(), numbers, operators);
+            input = input.replace("(", "");
+            input = input.replace("Sin", "");
+            input = input.replace("Cos", "");
+            input = input.replace("Sqrt", "");
+            expressionToArrays(input, numbers, operators);
             if (!numbers.isEmpty()) {
                 double lastNum = numbers.get(numbers.size() - 1);
                 if ((int) lastNum != lastNum) {
@@ -669,15 +797,62 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonStatusActionPerformed
 
+    private void jButtonOpenBracketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpenBracketActionPerformed
+        // TODO add your handling code here:
+        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(')
+            jLabelDisplay.setText(jLabelDisplay.getText() + "×(");
+        else
+            jLabelDisplay.setText(jLabelDisplay.getText() + "(");
+    }//GEN-LAST:event_jButtonOpenBracketActionPerformed
+
+    private void jButtonCloseBracketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseBracketActionPerformed
+        // TODO add your handling code here:
+        if (getLastChar() != '(') {
+            if (countBrackets(jLabelDisplay.getText()) > 0) {
+                jLabelDisplay.setText(jLabelDisplay.getText() + ")");
+            } else {
+                setStatus(101, "No open bracket found...");
+            }
+        } else
+            setStatus(101, "Empty open bracket...");
+    }//GEN-LAST:event_jButtonCloseBracketActionPerformed
+
+    private void jButtonSinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSinActionPerformed
+        // TODO add your handling code here:
+        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(')
+            jLabelDisplay.setText(jLabelDisplay.getText() + "×Sin(");
+        else
+            jLabelDisplay.setText(jLabelDisplay.getText() + "Sin(");
+    }//GEN-LAST:event_jButtonSinActionPerformed
+
+    private void jButtonSqrtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSqrtActionPerformed
+        // TODO add your handling code here:
+        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(')
+            jLabelDisplay.setText(jLabelDisplay.getText() + "×Sqrt(");
+        else
+            jLabelDisplay.setText(jLabelDisplay.getText() + "Sqrt(");
+    }//GEN-LAST:event_jButtonSqrtActionPerformed
+
+    private void jButtonCosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCosActionPerformed
+        // TODO add your handling code here:
+        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(')
+            jLabelDisplay.setText(jLabelDisplay.getText() + "×Cos(");
+        else
+            jLabelDisplay.setText(jLabelDisplay.getText() + "Cos(");
+    }//GEN-LAST:event_jButtonCosActionPerformed
+
     //if the last character on display is already an operator then it's replaced
     private void appendDisplayWithOperator(char c) {
         if (status == 101 && !jLabelDisplay.getText().isEmpty() && !(this.getLastChar() == '-' && jLabelDisplay.getText().length() == 1)) {
-            if (!"+-×÷^.".contains(Character.toString(jLabelDisplay.getText().charAt(jLabelDisplay.getText().length() - 1)))) {
+            if (!"+-×÷^.(".contains(getLastCharString())) {
                 jLabelDisplay.setText(jLabelDisplay.getText() + c);
+            } else if (getLastChar() == '(') {
+                if (c == '-') {
+                    jLabelDisplay.setText(jLabelDisplay.getText() + c);
+                }
             } else {
                 jLabelDisplay.setText(jLabelDisplay.getText().substring(0, jLabelDisplay.getText().length() - 1) + c);
             }
-
         } else if (status != 101); else {
             if (c == '-') {
                 jLabelDisplay.setText("-");
@@ -716,13 +891,11 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void setStatusMessage(int n, String message) {
         switch (n) {
-            case 401: {
+            case 401 -> {
                 jButtonStatus.setText("Error: " + message);
-                break;
             }
-            case 101: {
+            case 101 -> {
                 jButtonStatus.setText(message);
-                break;
             }
         }
         jButtonStatus.doClick();
@@ -737,21 +910,20 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     //string of numbers and operators to ArrayLists
     private void expressionToArrays(String input, ArrayList<Double> numbers, ArrayList<String> operators) {
         String temp = ""; //buffer for numbers before adding to the numbers array
-        char lastChar = 'c', currentChar = 'c';
-        String lastCharType = "empty", currentCharType = "empty";
+        char currentChar;
+        String currentCharType;
 
+        System.out.println("Input before parsing: " + input);
         //parsing starts here
-        System.out.println("===========Start of Parsing===========");
+//        System.out.println("===========Start of Parsing===========");
         for (int i = 0; i < input.length(); i++) {
             currentChar = input.charAt(i);
-            System.out.println("Character  " + (i + 1) + ": " + currentChar);
+//            System.out.println("Character " + (i + 1) + ": " + currentChar);
             try {
                 try {
                     Integer.parseInt(Character.toString(currentChar));
                     temp += currentChar;
-                    lastCharType = "number";
-                    lastChar = currentChar;
-                    System.out.println("It's the number " + currentChar);
+//                    System.out.println("It's the number " + currentChar);
                 } catch (NumberFormatException e) {
                     if (currentChar == '-' && temp == "") {
                         currentCharType = "minus";
@@ -759,11 +931,11 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                         currentCharType = "operator";
                     } else if (currentChar == '.') {
                         currentCharType = "decimalPoint";
+                    } else if (currentChar == 'E') {
+                        currentCharType = "E";
                     } else {
                         currentCharType = "unknown";
                     }
-                    System.out.println("It's the " + currentCharType + " " + currentChar);
-
                     switch (currentCharType) {
                         case "minus" -> {
                             if (temp != "") {
@@ -771,36 +943,50 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                                 throw new MyException();
                             } else if (temp == "") {
                                 temp += currentChar;
-                                lastCharType = "minus";
-                                lastChar = currentChar;
                             } else {
                                 throw new MyException(401, "unknown error");
                             }
                         }
                         case "decimalPoint" -> {
                             temp += ".";
-                            lastCharType = "decimalPoint";
-                            lastChar = '.';
                         }
                         case "operator" -> {
                             numbers.add(Double.parseDouble(temp));
-                            System.out.println("Added " + temp + " to nums!");
                             temp = "";
                             operators.add(Character.toString(currentChar));
-                            System.out.println("Added " + currentChar + " to operators!");
-                            lastCharType = "operator";
-                            lastChar = currentChar;
+                        }
+                        case "E" -> {
+                            temp += currentChar;
+                            i++;
+                            if (input.charAt(i) == '-') {
+//                                System.out.println("Character: " + (i + 1) + ": " + input.charAt(i));
+                                temp += input.charAt(i);
+                                i++;
+                            }
+                            while (true) {
+                                if (i == input.length() - 1) {
+                                    temp += input.charAt(i);
+                                    numbers.add(Double.parseDouble(temp));
+                                    temp = "";
+                                    break;
+                                } else if (allOperators.contains(Character.toString(input.charAt(i)))) {
+                                    break;
+                                } else {
+                                    temp += input.charAt(i);
+                                    i++;
+                                }
+                            }
                         }
                         case "unknown" -> {
-                            System.out.println("unkown thrown");
-                            throw new MyException(401, "unknown erorr");
+//                            System.out.println("unkown thrown");
+                            throw new MyException(401, "Unknown character found...");
                         }
                     }
 
                 }
             } catch (MyException | NumberFormatException e) {
 //                jLabelDisplay.setText("Err...");
-                System.out.println(e.getMessage());
+//                System.out.println(e.getMessage());
                 setStatus(401, e.getMessage());
                 break;
             }
@@ -809,28 +995,42 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         if (temp != "") {
             try {
                 numbers.add(Double.parseDouble(temp));
-                System.out.println("Added " + temp + " to nums!");
+//                System.out.println("Added " + temp + " to nums!");
                 setStatus(101, "Status: all good.");
             } catch (NumberFormatException e) {
                 setStatus(401, e.getMessage());
             }
         }
-        if (allOperators.contains(Character.toString(lastChar))) {
-            setStatus(401, "");
+        if (allOperators.contains(Character.toString(input.charAt(input.length() - 1)))) {
+            setStatus(401, "Ending with operator...");
         }
-        System.out.println("===========End of Parsing===========");
+//        System.out.println("===========End of Parsing===========");
         //parsing ends
 
+        //debugging
+//        if (!numbers.isEmpty()) {
+//            numbers.forEach(n -> {
+//                System.out.println("Numbers entry:" + n);
+//            });
+//        }
+//
+//        if (!operators.isEmpty()) {
+//            operators.forEach(operator -> {
+//                System.out.println("Operator entry: " + operator);
+//            });
+//        }
     }
 
     //result of applying an array of operators to an array of numbers
     private double resultOfArrays(ArrayList<Double> numbers, ArrayList<String> operators) {
+        System.out.println("resultOfArrays called with: " + numbers + "  " + operators);
         if (numbers.size() != operators.size() + 1) {
-            setStatus(401, "Error: ending with operator");
+            setStatus(401, "Null expression||Unknown characters");
             return 0;
         }
         if (numbers.size() == 1 && status == 101) {
             ANS = numbers.get(0);
+            System.out.println("resultOfArrays output: " + numbers.get(0));
             return numbers.get(0);
         } else if (status == 101 && numbers.size() != 1) {
 
@@ -866,31 +1066,138 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             }
 
             ANS = numbers.get(0);
+            System.out.println("resultOfArrays output: " + numbers.get(0));
             return numbers.get(0);
         }
+        System.out.println("resultOfArrays output: " + 0);
         return 0;
     }
 
     //get double result from a string of only numbers and operators
     private double resultOfExpression(String input) {
-        input = jLabelDisplay.getText();
-        if (!input.isEmpty()) {
-            ArrayList<Double> numbers = new ArrayList<>();
-            ArrayList<String> operators = new ArrayList<>();
-            //string split into numbers and operators in ArrayLists in order of appearance
-            expressionToArrays(input, numbers, operators);
-            //logging the numsbers and operators arrays
-            for (double n : numbers) {
-                System.out.println("Nums entry: " + n);
-            }
-            for (String c : operators) {
-                System.out.println("Operator entry:" + c);
-            }
-
-            //calculating the result using the numbers and the operators arrays
-            return resultOfArrays(numbers, operators);
+        System.out.println("resultOfExpression called with:" + input);
+        ArrayList<Double> numbers = new ArrayList<>();
+        ArrayList<String> operators = new ArrayList<>();
+        //resolving brackets and functions
+        if (input.contains("(") || input.contains("Sqrt") || input.contains("Sin") || input.contains("Cos")) {
+            input = resolveBrackets(input);
+            input = resolveFunctions(input);
         }
-        return 0;
+        //string split into numbers and operators in ArrayLists in order of appearance
+        expressionToArrays(input, numbers, operators);
+        //logging the numsbers and operators arrays
+//        numbers.forEach(n -> {
+//            System.out.println("Numbers entry: " + n);
+//        });
+//        operators.forEach(c -> {
+//            System.out.println("Operators entry:" + c);
+//        });
+
+        //calculating the result using the numbers and the operators arrays
+        System.out.println("resultOfExpression output: " + resultOfArrays(numbers, operators));
+        return (!numbers.isEmpty()) ? resultOfArrays(numbers, operators) : Double.NaN;
+    }
+
+    //returns number of open brackets - number of closed brackets 
+    private int countBrackets(String input) {
+        int open = 0, closed = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == '(') {
+                open++;
+            }
+        }
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == ')') {
+                closed++;
+            }
+        }
+        return open - closed;
+    }
+
+    //resolves all brackets in a string (input) then returns it
+    private String resolveBrackets(String input) {
+        System.out.println("resolveBrackets called with:" + input);
+        if (input.contains("(")) {
+            String currentExpression = new String();
+            int i = 0;
+            mainLoop:
+            while (input.contains("(")) {
+                if (input.charAt(i) == '(') {
+                    i++;
+                    secondaryLoop:
+                    while (input.charAt(i) != ')') {
+                        if (input.charAt(i) == '(') {
+                            String expression = new String();
+                            int j = i;
+                            while (input.substring(j + 1).contains("(")) {
+                                j++;
+                            }
+                            j--;
+                            while (input.charAt(j) != ')') {
+                                expression += input.charAt(j);
+                                j++;
+                            }
+                            expression += ")";
+                            input = input.replace(expression, resolveBrackets(expression));
+                            continue secondaryLoop;
+                        }
+                        currentExpression += input.charAt(i);
+                        i++;
+                    }
+                    input = input.replace(("(" + currentExpression + ")"), String.valueOf(resultOfExpression(currentExpression)));
+                    i = 0;
+                    currentExpression = "";
+                } else {
+                    i++;
+                }
+            }
+        }
+        System.out.println("resolveBrackets output: " + input);
+        return input;
+    }
+
+    private String resolveFunctions(String input) {
+        System.out.println("resolveFunctions called with: " + input);
+        input = input.replace("(", "");
+        input = input.replace(")", "");
+        while (input.contains("Sqrt") || input.contains("Sin") || input.contains("Cos")) {
+            if (input.contains("Sin")) {
+                String number = new String();
+                int i = input.indexOf("Sin") + 3;
+                while (true) {
+                    if ((i == (input.length() - 1)) || (allOperators).contains(Character.toString(input.charAt(i + 1)))) {
+                        break;
+                    }
+                    number += input.charAt(i);
+                    i++;
+                }
+                input = input.replace("Sin" + number, String.valueOf(Math.sin(Double.parseDouble(number))));
+            } else if (input.contains("Cos")) {
+                String number = new String();
+                int i = input.indexOf("Cos") + 3;
+                while (true) {
+                    if ((i == (input.length() - 1)) || (allOperators).contains(Character.toString(input.charAt(i + 1)))) {
+                        break;
+                    }
+                    number += input.charAt(i);
+                    i++;
+                }
+                input = input.replace("Cos" + number, String.valueOf(Math.cos(Double.parseDouble(number))));
+            } else if (input.contains("Sqrt")) {
+                String number = new String();
+                int i = input.indexOf("Sqrt") + 4;
+                while (true) {
+                    if ((i == (input.length() - 1)) || (allOperators).contains(Character.toString(input.charAt(i + 1)))) {
+                        break;
+                    }
+                    number += input.charAt(i);
+                    i++;
+                }
+                input = input.replace("Sqrt" + number, String.valueOf(Math.sqrt(Double.parseDouble(number))));
+            }
+        }
+        System.out.println("resolveFunction output: " + input);
+        return input;
     }
 
     /**
@@ -943,18 +1250,25 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonAns;
     private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonCloseBracket;
+    private javax.swing.JButton jButtonCos;
     private javax.swing.JButton jButtonDPoint;
     private javax.swing.JButton jButtonDel;
     private javax.swing.JButton jButtonDivision;
     private javax.swing.JButton jButtonEq;
+    private javax.swing.JButton jButtonHelp;
     private javax.swing.JButton jButtonMinus;
     private javax.swing.JButton jButtonMult;
+    private javax.swing.JButton jButtonOpenBracket;
     private javax.swing.JButton jButtonPlus;
     private javax.swing.JButton jButtonPow;
+    private javax.swing.JButton jButtonSin;
+    private javax.swing.JButton jButtonSqrt;
     private javax.swing.JButton jButtonStatus;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabelDisplay;
     private javax.swing.JPanel jPanelButtons;
+    private javax.swing.JPanel jPanelButtons1;
     private javax.swing.JPanel jPanelDisplay;
     private javax.swing.JPanel jPanelStatus;
     // End of variables declaration//GEN-END:variables
@@ -965,30 +1279,45 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar() + " (" + e.getKeyCode() + ") pressed.");
+//        System.out.println(e.getKeyChar() + " (" + e.getKeyCode() + ") pressed.");
         setStatus(101, "Status: waiting...");
         int key = e.getKeyCode();
         switch (key) {
-            case KeyEvent.VK_NUMPAD0 ->
-                this.jButton0.doClick();
-            case KeyEvent.VK_NUMPAD1 ->
+            case KeyEvent.VK_NUMPAD0, 48 -> {
+                if (e.isShiftDown()) {
+                    this.jButtonCloseBracket.doClick();
+                } else {
+                    this.jButton0.doClick();
+                }
+            }
+            case KeyEvent.VK_NUMPAD1, 49 ->
                 this.jButton1.doClick();
-            case KeyEvent.VK_NUMPAD2 ->
+            case KeyEvent.VK_NUMPAD2, 50 ->
                 this.jButton2.doClick();
-            case KeyEvent.VK_NUMPAD3 ->
+            case KeyEvent.VK_NUMPAD3, 51 ->
                 this.jButton3.doClick();
-            case KeyEvent.VK_NUMPAD4 ->
+            case KeyEvent.VK_NUMPAD4, 52 ->
                 this.jButton4.doClick();
-            case KeyEvent.VK_NUMPAD5 ->
+            case KeyEvent.VK_NUMPAD5, 53 ->
                 this.jButton5.doClick();
-            case KeyEvent.VK_NUMPAD6 ->
-                this.jButton6.doClick();
-            case KeyEvent.VK_NUMPAD7 ->
+            case KeyEvent.VK_NUMPAD6, 54 -> {
+                if (e.isShiftDown()) {
+                    this.jButtonPow.doClick();
+                } else {
+                    this.jButton6.doClick();
+                }
+            }
+            case KeyEvent.VK_NUMPAD7, 55 ->
                 this.jButton7.doClick();
-            case KeyEvent.VK_NUMPAD8 ->
+            case KeyEvent.VK_NUMPAD8, 56 ->
                 this.jButton8.doClick();
-            case KeyEvent.VK_NUMPAD9 ->
-                this.jButton9.doClick();
+            case KeyEvent.VK_NUMPAD9, 57 -> {
+                if (e.isShiftDown()) {
+                    this.jButtonOpenBracket.doClick();
+                } else {
+                    this.jButton9.doClick();
+                }
+            }
             case 106/*mult*/ ->
                 this.jButtonMult.doClick();
             case 107/*plus*/ ->
@@ -1005,8 +1334,29 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                 this.jButtonDel.doClick();
             case 27/*escape*/ ->
                 this.jButtonClear.doClick();
-            case 54/*power*/ ->
+            case KeyEvent.VK_UP, (int) '^', KeyEvent.VK_CIRCUMFLEX /*power*/ ->
                 this.jButtonPow.doClick();
+            case KeyEvent.VK_LEFT_PARENTHESIS, 91/*open bracket*/ ->
+                this.jButtonOpenBracket.doClick();
+            case KeyEvent.VK_RIGHT_PARENTHESIS, 93 /*close bracket*/ ->
+                this.jButtonCloseBracket.doClick();
+            case 83 ->//letter s
+                this.jButtonSin.doClick();
+            case 67 -> //letter c
+                this.jButtonCos.doClick();
+            case 81 -> //letter q
+                this.jButtonSqrt.doClick();
+            case KeyEvent.VK_V -> {
+                if (e.isControlDown()) {
+                    try {
+                        this.jLabelDisplay.setText(this.jLabelDisplay.getText() + Toolkit.getDefaultToolkit().getSystemClipboard().toString());
+                    } catch (NumberFormatException ex) {
+                        setStatus(404, ex.getMessage());
+                    }
+                }
+            }
+            case KeyEvent.VK_A ->
+                this.jButtonAns.doClick();
         }
 
     }
