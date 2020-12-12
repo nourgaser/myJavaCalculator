@@ -20,6 +20,9 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     public double ANS;
     public static final String allOperators = "+-×÷^";
     public static int status = 101;
+    public static ArrayList<String> previousExpressions = new ArrayList<String>();
+    public static int previousExpressionsIndex = -1;
+
     public static ImageIcon icon = new ImageIcon("E:\\Code\\Java Practice\\University\\Calculator Assigenment\\myCalculator\\src\\main\\java\\main\\myIcon.png");
     //101: all good
     //401: general/unknown error
@@ -89,6 +92,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         setFocusable(false);
         setForeground(java.awt.Color.darkGray);
         setIconImages(null);
+        setLocation(new java.awt.Point(500, 300));
         setMinimumSize(new java.awt.Dimension(455, 400));
 
         jPanelDisplay.setBackground(new java.awt.Color(51, 51, 51));
@@ -628,18 +632,12 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×7");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "7");
+        appendDisplayWithNumber('7');
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×9");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "9");
+        appendDisplayWithNumber('9');
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButtonDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDelActionPerformed
@@ -650,37 +648,28 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             temp = temp.substring(0, temp.length() - 1);
             jLabelDisplay.setText(temp);
         }
-
     }//GEN-LAST:event_jButtonDelActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×8");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "8");
+        appendDisplayWithNumber('8');
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
         // TODO add your handling code here:
         jLabelDisplay.setText("");
         setStatus(101, "Status: all good!");
+        previousExpressionsIndex = -1;   
     }//GEN-LAST:event_jButtonClearActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×4");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "4");
+        appendDisplayWithNumber('4');
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×6");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "6");
+        appendDisplayWithNumber('6');
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButtonMultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMultActionPerformed
@@ -690,10 +679,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×5");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "5");
+        appendDisplayWithNumber('5');
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButtonDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDivisionActionPerformed
@@ -707,8 +693,9 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     }//GEN-LAST:event_jButtonMinusActionPerformed
 
     private void jButtonEqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqActionPerformed
-        double result;
         String input = jLabelDisplay.getText();
+        if (!input.isEmpty()) previousExpressions.add(0, input);
+        double result;
         if (input.contains("(") && countBrackets(input) == 1) {
             input += ")";
         }
@@ -716,7 +703,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             jLabelDisplay.setText(String.valueOf(ANS));
         } else if (allOperators.contains(getLastCharString()))
             setStatus(101, "Can't end with an operator...");
-        else if (input.contains("(") && countBrackets(input) != 0) {
+        else if ((input.contains("(") && countBrackets(input) != 0) || (getLastChar() == '(')) {
             setStatus(101, "Unclosed bracket(s) found...");
         } else {
             //displaying the result
@@ -738,10 +725,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×3");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "3");
+        appendDisplayWithNumber('3');
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlusActionPerformed
@@ -770,10 +754,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×2");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "2");
+        appendDisplayWithNumber('2');
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonDPointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDPointActionPerformed
@@ -818,18 +799,12 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
     }//GEN-LAST:event_jButtonDPointActionPerformed
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×1");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "1");
+        appendDisplayWithNumber('1');
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton0ActionPerformed
         // TODO add your handling code here:
-        if (getLastChar() == ')')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×0");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "0");
+        appendDisplayWithNumber('0');
     }//GEN-LAST:event_jButton0ActionPerformed
 
     private void jButtonStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStatusActionPerformed
@@ -858,27 +833,27 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     private void jButtonSinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSinActionPerformed
         // TODO add your handling code here:
-        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×Sin(");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "Sin(");
+        appendDisplayWithFunction("Sin");
     }//GEN-LAST:event_jButtonSinActionPerformed
 
     private void jButtonSqrtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSqrtActionPerformed
         // TODO add your handling code here:
-        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×Sqrt(");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "Sqrt(");
+        appendDisplayWithFunction("Sqrt");
     }//GEN-LAST:event_jButtonSqrtActionPerformed
 
     private void jButtonCosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCosActionPerformed
         // TODO add your handling code here:
-        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(')
-            jLabelDisplay.setText(jLabelDisplay.getText() + "×Cos(");
-        else
-            jLabelDisplay.setText(jLabelDisplay.getText() + "Cos(");
+        appendDisplayWithFunction("Cos");
     }//GEN-LAST:event_jButtonCosActionPerformed
+
+    private void appendDisplayWithNumber(char c) {
+        if (getLastChar() == ')') {
+            jLabelDisplay.setText(jLabelDisplay.getText() + "×" + c);
+        } else {
+            jLabelDisplay.setText(jLabelDisplay.getText() + c);
+        }
+
+    }
 
     //if the last character on display is already an operator then it's replaced
     private void appendDisplayWithOperator(char c) {
@@ -902,6 +877,14 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
             }
         }
 
+    }
+
+    private void appendDisplayWithFunction(String name) {
+        if (!jLabelDisplay.getText().isEmpty() && "0123456789)".contains(getLastCharString()) && getLastChar() != '(') {
+            jLabelDisplay.setText(jLabelDisplay.getText() + "×" + name + "(");
+        } else {
+            jLabelDisplay.setText(jLabelDisplay.getText() + name + "(");
+        }
     }
 
     private char getLastChar() {
@@ -941,6 +924,26 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
 
     }
 
+    private void nextExpression() {
+        if (!previousExpressions.isEmpty() && previousExpressionsIndex != -1) {
+            if (previousExpressionsIndex >= 0) {
+                if (previousExpressionsIndex != 0) {
+                    previousExpressionsIndex--;
+                }
+                jLabelDisplay.setText(previousExpressions.get(previousExpressionsIndex));
+            }
+        }
+    }
+
+    private void previousExpression() {
+        if (!previousExpressions.isEmpty()) {
+            if (previousExpressionsIndex != previousExpressions.size() - 1) {
+                previousExpressionsIndex++;
+                jLabelDisplay.setText(previousExpressions.get(previousExpressionsIndex));
+            }
+        }
+    }
+
     //TODO: return the last number in the display
     private String getLastNumberString() {
         return "TODO";
@@ -953,7 +956,6 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         String currentCharType;
 
         System.out.println("Input before parsing: " + input);
-        //parsing starts here
 //        System.out.println("===========Start of Parsing===========");
         for (int i = 0; i < input.length(); i++) {
             currentChar = input.charAt(i);
@@ -1336,90 +1338,92 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
         switch (key) {
             case KeyEvent.VK_NUMPAD0, 48 -> {
                 if (e.isShiftDown()) {
-                    this.jButtonCloseBracket.doClick();
+                    jButtonCloseBracket.doClick();
                 } else {
-                    this.jButton0.doClick();
+                    jButton0.doClick();
                 }
             }
             case KeyEvent.VK_NUMPAD1, 49 ->
-                this.jButton1.doClick();
+                jButton1.doClick();
             case KeyEvent.VK_NUMPAD2, 50 ->
-                this.jButton2.doClick();
+                jButton2.doClick();
             case KeyEvent.VK_NUMPAD3, 51 ->
-                this.jButton3.doClick();
+                jButton3.doClick();
             case KeyEvent.VK_NUMPAD4, 52 ->
-                this.jButton4.doClick();
+                jButton4.doClick();
             case KeyEvent.VK_NUMPAD5, 53 ->
-                this.jButton5.doClick();
+                jButton5.doClick();
             case KeyEvent.VK_NUMPAD6, 54 -> {
                 if (e.isShiftDown()) {
-                    this.jButtonPow.doClick();
+                    jButtonPow.doClick();
                 } else {
-                    this.jButton6.doClick();
+                    jButton6.doClick();
                 }
             }
             case KeyEvent.VK_NUMPAD7, 55 ->
-                this.jButton7.doClick();
+                jButton7.doClick();
             case KeyEvent.VK_NUMPAD8, 56 -> {
                 if (e.isShiftDown()) {
-                    this.jButtonMult.doClick();
+                    jButtonMult.doClick();
                 } else {
-                    this.jButton8.doClick();
+                    jButton8.doClick();
                 }
             }
             case KeyEvent.VK_NUMPAD9, 57 -> {
                 if (e.isShiftDown()) {
-                    this.jButtonOpenBracket.doClick();
+                    jButtonOpenBracket.doClick();
                 } else {
-                    this.jButton9.doClick();
+                    jButton9.doClick();
                 }
             }
             case 106/*mult*/ ->
-                this.jButtonMult.doClick();
+                jButtonMult.doClick();
             case 107/*plus*/ ->
-                this.jButtonPlus.doClick();
+                jButtonPlus.doClick();
             case 109, KeyEvent.VK_MINUS/*minus*/ ->
-                this.jButtonMinus.doClick();
+                jButtonMinus.doClick();
             case 110/*point*/ ->
-                this.jButtonDPoint.doClick();
+                jButtonDPoint.doClick();
             case 111, 47/*divide*/ ->
-                this.jButtonDivision.doClick();
+                jButtonDivision.doClick();
             case 10/*enter*/ ->
-                this.jButtonEq.doClick();
+                jButtonEq.doClick();
             case 61/*equal or plus*/ -> {
                 if (e.isShiftDown()) {
-                    this.jButtonPlus.doClick();
+                    jButtonPlus.doClick();
                 } else {
-                    this.jButtonEq.doClick();
+                    jButtonEq.doClick();
                 }
             }
             case 8/*backspace*/ ->
-                this.jButtonDel.doClick();
+                jButtonDel.doClick();
             case 27/*escape*/ ->
-                this.jButtonClear.doClick();
-            case KeyEvent.VK_UP, (int) '^', KeyEvent.VK_CIRCUMFLEX /*power*/ ->
-                this.jButtonPow.doClick();
+                jButtonClear.doClick();
+            case KeyEvent.VK_DOWN ->
+                nextExpression();
+            case KeyEvent.VK_UP ->
+                previousExpression();
             case KeyEvent.VK_LEFT_PARENTHESIS, 91/*open bracket*/ ->
-                this.jButtonOpenBracket.doClick();
+                jButtonOpenBracket.doClick();
             case KeyEvent.VK_RIGHT_PARENTHESIS, 93 /*close bracket*/ ->
-                this.jButtonCloseBracket.doClick();
+                jButtonCloseBracket.doClick();
             case 83 ->//letter s
-                this.jButtonSin.doClick();
+                jButtonSin.doClick();
             case 67 -> //letter c
-                this.jButtonCos.doClick();
+                jButtonCos.doClick();
             case 81 -> //letter q
-                this.jButtonSqrt.doClick();
+                jButtonSqrt.doClick();
             case KeyEvent.VK_V -> {
                 if (e.isControlDown()) {
                     try {
-                        this.jLabelDisplay.setText(this.jLabelDisplay.getText() + Toolkit.getDefaultToolkit().getSystemClipboard().toString());
+                        jLabelDisplay.setText(jLabelDisplay.getText() + Toolkit.getDefaultToolkit().getSystemClipboard().toString());
                     } catch (NumberFormatException ex) {
                         setStatus(404, ex.getMessage());
                     }
                 }
             }
             case KeyEvent.VK_A ->
-                this.jButtonAns.doClick();
+                jButtonAns.doClick();
         }
 
     }
