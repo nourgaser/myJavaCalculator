@@ -1179,7 +1179,7 @@ public class Frame extends javax.swing.JFrame implements KeyListener {
                             while (input.substring(j + 1).contains("(")) {
                                 j++;
                             }
-                            j--;
+//                            j--;
                             while (input.charAt(j) != ')') {
                                 expression += input.charAt(j);
                                 j++;
